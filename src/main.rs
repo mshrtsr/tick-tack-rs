@@ -1,18 +1,19 @@
 use chrono::Local;
 use figlet_rs::FIGfont;
 
+use termion::{clear, cursor};
+
 fn main() {
     let standard_font = FIGfont::standand().unwrap();
     let delay = std::time::Duration::from_millis(1000);
 
-    let code_cls = "\x1B[2J\x1B[1;1H";
     let heading = "Hello!! Would you like \"Tick Tack\"?";
     let tick = " ₍₍⁽⁽Tick!!₎₎⁾⁾\n";
     let tack = "\n         ₍₍⁽⁽Tack!!₎₎⁾⁾";
     let mut tick_tack_flag = true;
 
     loop {
-        print!("{}", code_cls);
+        print!("{}{}", clear::All, cursor::Goto(1, 1));
         let local_date = Local::today().format("%Y/%m/%d").to_string();
         let local_time = Local::now().format("%H:%M:%S").to_string();
         let local_date = standard_font.convert(local_date.as_str());
